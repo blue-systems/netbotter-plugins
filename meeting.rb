@@ -6,7 +6,12 @@ class MeetingPlugin < Plugin
   end
 
   def help(_, _)
-    ':meeting roll call => highlight everyone and the kitchen sink'
+    <<-HELP
+roll call => highlight everyone and the kitchen sink, records anyone saying anything as present
+next => move to next person in queue
+move :name up => moves the nick :name to the front of the queue
+All commands have numerous aliases.
+    HELP
   end
 
   def unreplied(m, **_)
