@@ -51,6 +51,16 @@ class MeetingPlugin < Plugin
     reset!
   end
 
+  def move_up(m, name:, **_)
+    nick = @pending.delete(name)
+    unless nick
+      m.reply "#{name} not in pending stack"
+      return
+    end
+    @pending.unshift(nick)
+    m.reply "Moved #{nick} to the front of the queue."
+  end
+
   private
 
   def reset!
@@ -77,3 +87,5 @@ plugin.map 'done', action: 'next'
 plugin.map 'meeting next', action: 'next'
 plugin.map 'start', action: 'next'
 plugin.map 'meeting start', action: 'next'
+plugin.map 'move :name up', action: 'move_up'
+# plugin.map 'move :name back', action: 'move_back'
