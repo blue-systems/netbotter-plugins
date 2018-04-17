@@ -52,6 +52,10 @@ class MeetingPlugin < Plugin
   end
 
   def move_up(m, name:, **_)
+    unless @active
+      m.reply 'No meeting in progress. Do a roll call first?'
+      return
+    end
     nick = @pending.delete(name)
     unless nick
       m.reply "#{name} not in pending stack"
